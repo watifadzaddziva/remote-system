@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject, throwError } from 'rxjs';
+import { map, Observable, of, Subject, throwError } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class DefaultService {
-  baseUrl='http://13.48.67.87:8025'
+  baseUrl='http://16.16.211.66:8025'
   static NAME = 'token';
   static TOKEN: string;
   token: string;
@@ -87,10 +87,18 @@ return this.http.get(`${this.baseUrl}/motor/latest_sensor_data`)
 
   }  
   
-  motorReport(filter:any):Observable<any>{
-    return this.http.post<any>(`${this.baseUrl}/motor-report`,filter)
+  weeklyReport(name:any, fromDate:any,toDate:any):Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}/report/weekly_report?motorName=${name}&fromDate=${fromDate}&toDate=${toDate}`,{responseType:'blob' as 'json'}).pipe(map(data=>{
+      return data;
+    }))
 
   }
+
+ monthlyReport(name:any,month:any):Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}/report/monthly_report?motorName=${name}&month=${month}`,{responseType:'blob' as 'json'}).pipe(map(data=>{
+      return data;
+    }))
+
 }
-  
+} 
   

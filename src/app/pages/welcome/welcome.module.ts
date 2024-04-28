@@ -28,12 +28,15 @@ import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { LoaderComponent } from './pages/loader/loader.component';
+import { ReportsComponent } from './pages/reports/reports.component';
 
 @NgModule({
   declarations: [
     SetThresholdComponent,
     MotorDataComponent,
-    ThresholdPageComponent
+    ThresholdPageComponent,
+    ReportsComponent
   ],
   imports: 
   [

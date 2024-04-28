@@ -1,19 +1,41 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
-export const REPORTFields = function get( employees:Array<any>): FormlyFieldConfig[] {
+export const weeklyFields = function get( motors:Array<any>): FormlyFieldConfig[] {
     return [
       { 
-        key: 'employeeId',
+        key: 'motorName',
         type: 'select',
         templateOptions: {
-          label: 'Employee(Optional)',
+          label: 'Select Motor',
           placeholder: 'Select name',
           required: false,
-          options:employees
+          options:motors
         }
       },
-      
-     
+
+      { 
+        key: 'fromDate',
+        type: 'input',
+        templateOptions: {
+          label: 'From',
+          placeholder: 'Select date',
+          required: false,
+          type:'date',
+
+        }
+      },
+
+      { 
+        key: 'toDate',
+        type: 'input',
+        templateOptions: {
+          label: 'To',
+          placeholder: 'Select date',
+          required: false,
+          type:'date',
+
+        }
+      },
   
     ]
   }

@@ -33,6 +33,8 @@ import { DefaultService } from './services/default.service';
 import { MasterComponent } from './reports/master/master.component';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { MonthlyReportComponent } from './reports/monthly-report/monthly-report.component';
+import { LoaderComponent } from './pages/welcome/pages/loader/loader.component';
 
 registerLocaleData(en);
 
@@ -41,7 +43,9 @@ registerLocaleData(en);
     AppComponent,
     LoginComponent,
     WelcomeComponent,
-    MasterComponent
+    MasterComponent,
+    MonthlyReportComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

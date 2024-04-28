@@ -1,18 +1,19 @@
-import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { FormGroup, UntypedFormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { DefaultService } from '../../services/default.service';
-import { weeklyFields } from '../../pages/welcome/forms/master-report.fields';
+import { monthlyFields } from '../../pages/welcome/forms/monthly.reports.fields';
 
 @Component({
-  selector: 'app-master',
-  templateUrl: './master.component.html',
-  styleUrl: './master.component.css'
+  selector: 'app-monthly-report',
+  templateUrl: './monthly-report.component.html',
+  styleUrl: './monthly-report.component.css'
 })
-export class MasterComponent {
+export class MonthlyReportComponent {
+
   url!: string;
   disabled = true;
   loading: boolean = false;
@@ -25,8 +26,7 @@ export class MasterComponent {
   safeUrl: any;
   isLoaded:boolean =false;
   options:any;
-  to:any;
-  from:any;
+  month:any;
   motors: any;
 
   constructor(private nzNotification: NzNotificationService,
@@ -37,9 +37,12 @@ export class MasterComponent {
 
   }
 
-  ngOnInit(): void {     
+  ngOnInit(): void {    
+    this.form=this.fb.group({
+      month:[],
+    }) 
     this.getAllMotors();
-    this.fields=weeklyFields(this.motors);
+    this.fields=monthlyFields(this.motors);
   }
 
   toggle(visible: boolean) {
@@ -49,13 +52,12 @@ export class MasterComponent {
 
   submit() {
     this.loading=true;
-    const formData = this.form.value as {motorName :any ,fromDate:any,toDate:any};
+    const formData = this.form.value as {motorName :any ,month:any,};
     const reportData = {
       name: formData.motorName, 
-      fromDate: this.dp.transform(formData.fromDate, 'yyyy-MM-dd'), 
-      toDate: this.dp.transform(formData.toDate, 'yyyy-MM-dd'),
+      month: this.dp.transform(formData.month, 'yyyy-MM'), 
     };
-    this.service.weeklyReport(reportData.name,reportData.fromDate,reportData.toDate)
+    this.service.monthlyReport(reportData.name,reportData.month)
       .subscribe(
          (res:any) => {
           const file = new Blob([res], { type: 'application/pdf' });
@@ -77,8 +79,7 @@ export class MasterComponent {
       this.motors=res.map((motor:any)=>{
         return {label:motor.motorName,value:motor.motorName}
       });
-      this.fields=weeklyFields(this.motors);
+      this.fields=monthlyFields(this.motors);
     })
   }
-
 }
