@@ -9,8 +9,8 @@
 
   <div class="card-list">
     <div nz-row>
-    <div class="card" *ngFor="let card of motors" nz-col nzSpan="8">
-      <nz-card style="width: 250px; margin-right: 16px;"  [nzCover]="coverTemplate">
+    <div class="card" *ngFor="let card of motors" nz-col nzSpan="12">
+      <nz-card style="width: 400px; margin-right: 16px;"  [nzCover]="coverTemplate">
         <nz-card-meta nzTitle="{{card.motorName}}"></nz-card-meta>
         Status: {{ card.status }}<br />
         Current Value: {{ card.currentValue }}<br />

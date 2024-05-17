@@ -8,17 +8,17 @@
     <nz-table #basicTable [nzData]='thresholds' [nzShowPagination]="false">
       <thead>
         <tr>
-          <th>Current</th>
-          <th>Temperature</th>
-          <th>Vibration</th>
+          <th>Current (A)</th>
+          <th>Temperature(⁰C)</th>
+          <th>Vibration(Hz)</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor='let data of basicTable.data'>
-          <td>{{data.current }} A</td>   
-          <td>{{data.temperature}}⁰C</td>
-          <td>{{data.vibrations }} G</td>
+          <td>{{data.current }}</td>   
+          <td>{{data.temperature}}</td>
+          <td>{{data.vibrations }} </td>
           <td>
             <nz-button-group  nzType="primary">
               <app-set-threshold [threshold]='data' (output)='load($event)'></app-set-threshold>
