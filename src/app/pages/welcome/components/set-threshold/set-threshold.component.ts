@@ -21,6 +21,7 @@ export class SetThresholdComponent {
   options: any;
   isLoaded:boolean= false;
   isLoading:boolean=false;
+  motors:any;
 
 
   constructor(private service: DefaultService, 
@@ -29,12 +30,13 @@ export class SetThresholdComponent {
   }
 
   ngOnInit(): void {
-    this.fields = thresholdFields();
+    this.getMotors();
+    this.fields = thresholdFields(this.motors);
   }
 
   ngOnChanges() {
     this.threshold = { ...this.threshold };
-    this.fields = thresholdFields();
+    this.fields = thresholdFields(this.motors);
   }
 
   toggle(visible: boolean): void {
@@ -66,5 +68,13 @@ submit() {
   }
 }
 
+getMotors(){
+  this.service.getMotors().subscribe((res)=>{
+    this.motors=res.map((motor:any)=>{
+      return {label:motor.motorName,value:motor.motorName}
+    });
+    this.fields=thresholdFields(this.motors);
+  })
+}
 
 }

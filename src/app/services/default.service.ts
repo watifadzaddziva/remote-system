@@ -83,6 +83,10 @@ login(user :any):Observable<any>{
   getAllMotorData(): Observable<any>{
 return this.http.get(`${this.baseUrl}/motor/latest_sensor_data`)
   }
+
+  getMotors():Observable<any>{
+    return this.http.get(`${this.baseUrl}/motor/all-motors`)
+  }
   getByName(){
 
   }  

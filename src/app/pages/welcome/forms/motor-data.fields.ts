@@ -1,7 +1,18 @@
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
-export const thresholdFields = function get(): FormlyFieldConfig[] {
+export const thresholdFields = function get(motornames:Array<any>): FormlyFieldConfig[] {
     return [
+      {
+        key: 'motorName',
+        type: 'select',
+        templateOptions: {
+          label: 'Select Motor Name',
+          placeholder: 'select motor',
+          required: true,
+          options:motornames,
+        }
+      },
+
       {
         key: 'current',
         type: 'number',

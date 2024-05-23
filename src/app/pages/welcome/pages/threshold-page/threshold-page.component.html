@@ -8,6 +8,7 @@
     <nz-table #basicTable [nzData]='thresholds' [nzShowPagination]="false">
       <thead>
         <tr>
+          <th>Motor Name</th>
           <th>Current (A)</th>
           <th>Temperature(⁰C)</th>
           <th>Vibration(Hz)</th>
@@ -16,6 +17,7 @@
       </thead>
       <tbody>
         <tr *ngFor='let data of basicTable.data'>
+          <td>{{data?.motor?.motorName}}</td>
           <td>{{data.current }}</td>   
           <td>{{data.temperature}}</td>
           <td>{{data.vibrations }} </td>
