@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { DefaultService } from '../../../../services/default.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-motor-data',
   templateUrl: './motor-data.component.html',
   styleUrl: './motor-data.component.css',
 })
-export class MotorDataComponent {
+export class MotorDataComponent implements OnInit,OnDestroy{
   motors!: any;
   id!: any;
   data: any;
@@ -18,6 +19,8 @@ export class MotorDataComponent {
   filteredCardsData: any[] = [];
   searchTerm: string = '';
   image!: any;
+  private intervalId: any;
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private route: ActivatedRoute,
@@ -27,36 +30,15 @@ export class MotorDataComponent {
 
   ngOnInit() {
     this.getAll();
+    this.intervalId = setInterval(() => {
+      this.getAll();
+    }, 1000);
   }
 
   getAll() {
     this.service.getAllMotorData().subscribe((res) => {
       this.motors = res;
     });
-  }
-
-  search(name: string): void {
-    // this.defaultService.getByName(name).subscribe(result => {
-    //   this.thresholds = result,
-    //   (error:HttpErrorResponse)=>{
-    //     if(error.status == 400){
-    //       this.notification.error('name not found','')
-    //     }
-    //   }
-    // });
-  }
-
-  filterCards() {
-    // this.filteredCardsData = this.motors.filter((card :any)=> {
-    //   return card.machine.toLowerCase().includes(this.searchTerm.toLowerCase());
-    // });
-    // this.currentPage = 1;
-  }
-
-  updateFilteredCards() {
-    // const startIndex = (this.currentPage - 1) * this.pageSize;
-    // const endIndex = startIndex + this.pageSize;
-    // return this.filteredCardsData.slice(startIndex, endIndex);
   }
 
   onPageChange(pageIndex: number) {
@@ -67,5 +49,12 @@ export class MotorDataComponent {
     this.service.getImage().subscribe((res) => {
       this.image = res;
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+    this.subscription.unsubscribe();
   }
 }
